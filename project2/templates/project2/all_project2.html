@@ -4,3 +4,14 @@
 <h1>Welcome to Project 2</h1>
 <p>This is the homepage of Project 2.</p>
 {% endblock %}
+
+{% for data in project_details  %}
+<div>
+    <img src="{{ data.image.url }}" alt="{{ data.title }}">
+    <h2>{{ data.title }}</h2>
+    <p>{{ data.description }}</p>
+    <p>Type: {{ data.get_type_display }}</p>
+    <p>Start Date: {{ data.start_date }}</p>
+    <p>End Date: {{ data.end_date }}</p>
+</div>
+{% endfor %}
