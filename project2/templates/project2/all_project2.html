@@ -1,17 +1,32 @@
+{% extends 'layout.html' %}
 {% block title %}Project 2{% endblock %}
 
 {% block content %}
-<h1>Welcome to Project 2</h1>
-<p>This is the homepage of Project 2.</p>
+<div class="container mx-auto bg-blue-400 h-screen">
+    <div class="flex flex-col my-5 p-4 items-center justify-center">
+        <h1>Welcome to Project 2</h1>
+        <p>This is the homepage of Project 2.</p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-10 mx-5">
+        {% for data in project_details  %}
+        <div>
+            <img src="{{ data.image.url }}" class="rounded-4xl" alt="{{ data.title }}">
+            <h2>{{ data.title }}</h2>
+            <p>{{ data.description }}</p>
+            <p>Type: {{ data.get_type_display }}</p>
+            <p>Start Date: {{ data.start_date }}</p>
+            <p>End Date: {{ data.end_date }}</p>
+            <p>Cost: ${{ data.cost }}</p>
+            <a href="{% url 'project2_detail' data.id %}">
+                <button class='btn btn-warning'>Details</button>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+ 
+
 {% endblock %}
 
-{% for data in project_details  %}
-<div>
-    <img src="{{ data.image.url }}" alt="{{ data.title }}">
-    <h2>{{ data.title }}</h2>
-    <p>{{ data.description }}</p>
-    <p>Type: {{ data.get_type_display }}</p>
-    <p>Start Date: {{ data.start_date }}</p>
-    <p>End Date: {{ data.end_date }}</p>
-</div>
-{% endfor %}
