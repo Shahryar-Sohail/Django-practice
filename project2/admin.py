@@ -18,7 +18,7 @@ class ProjectAdmin(admin.ModelAdmin):
 class ProjectShopAdmin(admin.ModelAdmin):
     list_display = ("name", "address")
     search_fields = ("name", "description", "address")
-    # filter_horizontal = ("ProjectDetail",)
+    filter_horizontal = ("project",)
 
 
 class ProjectCertificateAdmin(admin.ModelAdmin):
