@@ -9,3 +9,6 @@ def all_project2(request):
 def project2_detail(request, id):
     details = get_object_or_404(ProjectDetail,pk=id)
     return render(request, 'project2/project2_detail.html',{'details':details})
+
+def project_shop(request):
+    return render(request, 'project2/projectShop.html')
