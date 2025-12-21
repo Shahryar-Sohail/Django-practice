@@ -12,13 +12,13 @@ def project2_detail(request, id):
     return render(request, 'project2/project2_detail.html',{'details':details})
 
 def project_shop(request):
-    stores = None
+    shops = None
     if request.method == 'POST':
         form = ProjectDetailForm(request.POST)
         if form.is_valid():
             project_Details= form.cleaned_data['project_Details']
-            shop = ProjectShop.objects.filter(ProjectDetails=project_Details)
+            shops = ProjectShop.objects.filter(project=project_Details)
     else:
         form = ProjectDetailForm()
     
-    return render(request, 'project2/projectShop.html', {'stores':stores, 'form':form})
+    return render(request, 'project2/projectShop.html', {'shops':shops, 'form':form})

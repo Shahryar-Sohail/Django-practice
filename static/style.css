@@ -1,7 +1,7 @@
 body{
     background-color: #f15454ff;
     color: white;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
 }

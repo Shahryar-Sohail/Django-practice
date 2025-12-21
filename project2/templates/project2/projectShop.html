@@ -1,8 +1,22 @@
 {% extends "layout.html" %} 
 {% block  content%}
-
-<br>
-<form method="post" class="container mx-auto p-4 text-black">
-    {{form}}
+<form method="POST" class="container p-4 text-black  bg-gray-200  block">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-success">Search Button</button>
 </form>
+{% if shops %}
+<div class="block">
+<h2>Shop Details</h2>
+<ul>
+    {% for shop in shops %}
+    <li>
+        <strong>Shop Name:</strong> {{ shop.name }} <br>
+        <strong>Location:</strong> {{ shop.description }} <br>
+        <strong>Contact:</strong> {{ shop.address }} <br>
+    </li>
+</ul>
+</div>
+    {% endfor %}
+{% endif %}
 {% endblock %}

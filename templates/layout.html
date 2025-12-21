@@ -8,7 +8,7 @@
     <title>
         {% block title %}Document{% endblock %}
     </title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
     {% tailwind_css %}
 </head>
 <body>

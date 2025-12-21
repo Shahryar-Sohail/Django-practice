@@ -8,9 +8,11 @@
     --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-amber-500: oklch(76.9% 0.188 70.08);
     --color-blue-400: oklch(70.7% 0.165 254.624);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-gray-50: oklch(98.5% 0.002 247.839);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-black: #000;
     --spacing: 0.25rem;
     --text-5xl: 3rem;
@@ -450,6 +452,76 @@
       }
     }
   }
+  @layer daisyui.component {
+    .rating {
+      position: relative;
+      display: inline-flex;
+      vertical-align: middle;
+    }
+    .rating input {
+      border: none;
+      appearance: none;
+    }
+    .rating :where(*) {
+      height: calc(0.25rem * 6);
+      width: calc(0.25rem * 6);
+      border-radius: 0;
+      background-color: var(--color-base-content);
+      opacity: 20%;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .rating :where(*) {
+        animation: rating 0.25s ease-out;
+      }
+    }
+    .rating :where(*):is(input) {
+      cursor: pointer;
+    }
+    .rating .rating-hidden {
+      width: calc(0.25rem * 2);
+      background-color: transparent;
+    }
+    .rating input[type="radio"]:checked {
+      background-image: none;
+    }
+    .rating *:checked, .rating *[aria-checked="true"], .rating *[aria-current="true"], .rating *:has(~ *:checked, ~ *[aria-checked="true"], ~ *[aria-current="true"]) {
+      opacity: 100%;
+    }
+    .rating *:focus-visible {
+      scale: 1.1;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .rating *:focus-visible {
+        transition: scale 0.2s ease-out;
+      }
+    }
+    .rating *:active:focus {
+      animation: none;
+      scale: 1.1;
+    }
+  }
+  @layer daisyui.modifier {
+    .rating.rating-xs :where(*:not(.rating-hidden)) {
+      width: calc(0.25rem * 4);
+      height: calc(0.25rem * 4);
+    }
+    .rating.rating-sm :where(*:not(.rating-hidden)) {
+      width: calc(0.25rem * 5);
+      height: calc(0.25rem * 5);
+    }
+    .rating.rating-md :where(*:not(.rating-hidden)) {
+      width: calc(0.25rem * 6);
+      height: calc(0.25rem * 6);
+    }
+    .rating.rating-lg :where(*:not(.rating-hidden)) {
+      width: calc(0.25rem * 7);
+      height: calc(0.25rem * 7);
+    }
+    .rating.rating-xl :where(*:not(.rating-hidden)) {
+      width: calc(0.25rem * 8);
+      height: calc(0.25rem * 8);
+    }
+  }
   .static {
     position: static;
   }
@@ -503,6 +575,51 @@
   }
   .my-5 {
     margin-block: calc(var(--spacing) * 5);
+  }
+  @layer daisyui.component {
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: calc(0.25rem * 1.5);
+      white-space: nowrap;
+      color: currentcolor;
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .label {
+        color: color-mix(in oklab, currentcolor 60%, transparent);
+      }
+    }
+    .label:has(input) {
+      cursor: pointer;
+    }
+    .label:is(.input > *, .select > *) {
+      display: flex;
+      height: calc(100% - 0.5rem);
+      align-items: center;
+      padding-inline: calc(0.25rem * 3);
+      white-space: nowrap;
+      font-size: inherit;
+    }
+    .label:is(.input > *, .select > *):first-child {
+      margin-inline-start: calc(0.25rem * -3);
+      margin-inline-end: calc(0.25rem * 3);
+      border-inline-end: var(--border) solid currentColor;
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .label:is(.input > *, .select > *):first-child {
+        border-inline-end: var(--border) solid color-mix(in oklab, currentColor 10%, #0000);
+      }
+    }
+    .label:is(.input > *, .select > *):last-child {
+      margin-inline-start: calc(0.25rem * 3);
+      margin-inline-end: calc(0.25rem * -3);
+      border-inline-start: var(--border) solid currentColor;
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .label:is(.input > *, .select > *):last-child {
+        border-inline-start: var(--border) solid color-mix(in oklab, currentColor 10%, #0000);
+      }
+    }
   }
   .alert {
     border-width: var(--border);
@@ -570,6 +687,17 @@
   .rounded-4xl {
     border-radius: var(--radius-4xl);
   }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .border-5 {
+    border-style: var(--tw-border-style);
+    border-width: 5px;
+  }
+  .border-amber-500 {
+    border-color: var(--color-amber-500);
+  }
   .bg-blue-400 {
     background-color: var(--color-blue-400);
   }
@@ -578,6 +706,9 @@
   }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
+  }
+  .bg-gray-200 {
+    background-color: var(--color-gray-200);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
@@ -606,6 +737,12 @@
   }
   .text-black {
     color: var(--color-black);
+  }
+  @layer daisyui.modifier.color {
+    .btn-success {
+      --btn-color: var(--color-success);
+      --btn-fg: var(--color-success-content);
+    }
   }
   @layer daisyui.modifier.color {
     .btn-warning {
@@ -852,6 +989,11 @@
     background-position-x: -115%;
   }
 }
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-leading {
   syntax: "*";
   inherits: false;
@@ -863,6 +1005,7 @@
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-border-style: solid;
       --tw-leading: initial;
       --tw-tracking: initial;
     }
